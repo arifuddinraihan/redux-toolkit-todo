@@ -12,7 +12,7 @@ import {
 } from "@/redux/api/api";
 
 export type TTodoCardsProps = {
-  _id: string;
+  _id?: string;
   title: string;
   description: string;
   isCompleted?: boolean;
@@ -28,7 +28,7 @@ const TodoCards = ({
 }: TTodoCardsProps) => {
   // const dispatch = useAppDispatch();
 
-  console.log(title, description)
+  console.log(title, description);
 
   const [updateTodo] = useUpdateSingleTodoMutation();
 

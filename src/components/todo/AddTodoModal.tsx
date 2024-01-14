@@ -12,11 +12,10 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 // import { useAppDispatch } from "@/redux/hooks";
-import {
-  TTodo,
-  // addTodo,
-  // sortByPendingTodoList,
-} from "@/redux/features/todoSlice";
+import // TTodo,
+// addTodo,
+// sortByPendingTodoList,
+"@/redux/features/todoSlice";
 import {
   Select,
   SelectContent,
@@ -26,6 +25,7 @@ import {
   SelectValue,
 } from "../ui/select";
 import { useAddTodoMutation } from "@/redux/api/api";
+import { TTodoCardsProps } from "./TodoCards";
 
 const AddTodoModal = () => {
   const [task, setTask] = useState("");
@@ -39,7 +39,7 @@ const AddTodoModal = () => {
     e.preventDefault();
     // const randomStringId = Math.random().toString(36).substring(2, 7);
 
-    const taskDetails: TTodo = {
+    const taskDetails: TTodoCardsProps = {
       title: task,
       description: description,
       isCompleted: false,
