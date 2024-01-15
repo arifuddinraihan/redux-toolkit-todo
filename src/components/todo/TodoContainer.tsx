@@ -22,12 +22,23 @@ const TodoContainer = () => {
   }
   return (
     <div>
-      <div className="flex justify-between mb-10">
-        <AddTodoModal />
-        <TodoFilter
-          priorityFilter={priorityFilter}
-          setPriorityFilter={setPriorityFilter}
-        />
+      <div className="bg-primary-gradient w-full h-full rounded-xl p-[5px] mb-10">
+        <div className="flex justify-between items-center bg-white rounded-xl w-full h-full p-3">
+          <AddTodoModal />
+          <p className="text-lg font-medium">
+            You have currently {todos?.data?.length} tasks pending and{" "}
+            {
+              todos?.data.filter(
+                (item: TTodoCardsProps) => item.priority === "High"
+              ).length
+            }{" "}
+            have high priority.
+          </p>
+          <TodoFilter
+            priorityFilter={priorityFilter}
+            setPriorityFilter={setPriorityFilter}
+          />
+        </div>
       </div>
       <div className="bg-primary-gradient w-full h-full rounded-xl p-[5px]">
         <div
