@@ -12,7 +12,7 @@ const TodoContainer = () => {
 
   const { data: todos, isLoading, isError } = useGetTodosQuery(priorityFilter);
 
-  const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
+  const [parent] = useAutoAnimate(/* optional config */);
 
   if (isLoading) {
     return <h1>Loading...</h1>;

@@ -112,7 +112,7 @@ const AddTodoModal = () => {
                 className="bg-slate-800 text-white hover:bg-slate-400 hover:text-slate-800"
                 type="submit"
               >
-                Save changes
+                Add Todo
               </Button>
             </DialogClose>
           </div>

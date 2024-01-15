@@ -10,6 +10,7 @@ import {
   // useGetAllTodoQuery,
   useUpdateSingleTodoMutation,
 } from "@/redux/api/api";
+import UpdateTodoModal from "./updateTodoModal";
 
 export type TTodoCardsProps = {
   _id?: string;
@@ -144,7 +145,15 @@ const TodoCards = ({
             ></path>
           </svg>
         </Button>
-        <Button className="bg-[#5C53FE] text-white rounded-xl hover:bg-slate-800">
+        <UpdateTodoModal
+          key={_id}
+          _id={_id}
+          title={title}
+          description={description}
+          isCompleted={isCompleted}
+          priority={priority}
+        />
+        {/* <Button className="bg-[#5C53FE] text-white rounded-xl hover:bg-slate-800">
           <svg
             className="size-5"
             data-slot="icon"
@@ -161,7 +170,7 @@ const TodoCards = ({
               d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
             ></path>
           </svg>
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
