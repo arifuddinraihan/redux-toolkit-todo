@@ -54,7 +54,7 @@ const AddTodoModal = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-primary-gradient text-white rounded-xl text-xl font-semibold">
+        <Button className="bg-primary-gradient hover:bg-secondary-gradient text-white rounded-xl text-xl font-semibold">
           Add todo
         </Button>
       </DialogTrigger>
@@ -97,9 +97,9 @@ const AddTodoModal = () => {
                 </SelectTrigger>
                 <SelectContent className="bg-white rounded-2xl">
                   <SelectGroup>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="low">Low</SelectItem>
+                    <SelectItem value="High">High</SelectItem>
+                    <SelectItem value="Medium">Medium</SelectItem>
+                    <SelectItem value="Low">Low</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

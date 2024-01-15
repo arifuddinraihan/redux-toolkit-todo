@@ -1,3 +1,4 @@
+import { TTodoUpdate } from "@/components/todo/TodoCards";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const baseApi = createApi({
@@ -6,10 +7,23 @@ export const baseApi = createApi({
   tagTypes: ["Tasks"],
   endpoints: (builder) => ({
     getTodos: builder.query({
-      query: () => ({
-        url: `/tasks`,
-        method: "GET",
-      }),
+      query: (priorityFilter) => {
+        const params = new URLSearchParams();
+
+        if (
+          priorityFilter === "High" ||
+          priorityFilter === "Medium" ||
+          priorityFilter === "Low"
+        ) {
+          params.append("priority", priorityFilter);
+        }
+
+        return {
+          url: `/tasks`,
+          method: "GET",
+          params: params,
+        };
+      },
       providesTags: ["Tasks"],
     }),
     addTodo: builder.mutation({
@@ -34,10 +48,10 @@ export const baseApi = createApi({
       invalidatesTags: ["Tasks"],
     }),
     updateSingleTodo: builder.mutation({
-      query: (options) => ({
+      query: (options: TTodoUpdate) => ({
         url: `/task/${options.id}`,
         method: "PUT",
-        body: options.body,
+        body: options.data,
       }),
       invalidatesTags: ["Tasks"],
     }),

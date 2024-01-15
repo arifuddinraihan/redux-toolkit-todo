@@ -19,6 +19,16 @@ export type TTodoCardsProps = {
   priority: string;
 };
 
+export type TTodoUpdate = {
+  id: string | undefined;
+  data: {
+    title: string;
+    description: string;
+    isCompleted?: boolean;
+    priority: string;
+  };
+};
+
 const TodoCards = ({
   _id,
   title,
@@ -28,16 +38,17 @@ const TodoCards = ({
 }: TTodoCardsProps) => {
   // const dispatch = useAppDispatch();
 
-  console.log(title, description);
-
   const [updateTodo] = useUpdateSingleTodoMutation();
 
   const [deleteTodo] = useDeleteSingleTodoMutation();
 
   const toggleHandle = () => {
-    const options = {
-      _id,
-      body: {
+    const options: TTodoUpdate = {
+      id: _id,
+      data: {
+        title,
+        description,
+        priority,
         isCompleted: !isCompleted,
       },
     };
@@ -48,51 +59,69 @@ const TodoCards = ({
   };
   return (
     <div className="bg-white rounded-md flex justify-between items-center p-3 border">
-      <input onChange={toggleHandle} type="checkbox" name="" id="" />
-      <p className="font-semibold">{title}</p>
-      <div>
+      <input
+        onChange={toggleHandle}
+        className="mr-3"
+        type="checkbox"
+        name=""
+        id=""
+        defaultChecked={isCompleted}
+      />
+      <p className="font-semibold flex-1">{title}</p>
+      <div className="flex-1 flex items-center gap-2">
+        <div
+          className={`size-3 rounded-full 
+        ${priority === "High" ? "bg-rose-500" : null}
+        ${priority === "Medium" ? "bg-amber-400" : null}
+        ${priority === "Low" ? "bg-cyan-400" : null}
+        `}
+        ></div>
+        <p>{priority}</p>
+      </div>
+      <div className="flex-1">
         {isCompleted ? (
-          <p>
+          <div className="flex items-center gap-2">
             <svg
               className="size-8 text-green-500"
               data-slot="icon"
               fill="none"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
               ></path>
             </svg>
-          </p>
+            <p>Completed</p>
+          </div>
         ) : (
-          <p>
+          <div className="flex items-center gap-2">
             <svg
-              className="size-8 text-red-500"
+              className="size-8 text-red-500 "
               data-slot="icon"
               fill="none"
-              stroke-width="1.5"
+              strokeWidth="1.5"
               stroke="currentColor"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               aria-hidden="true"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
               ></path>
             </svg>
-          </p>
+            <p>Pending</p>
+          </div>
         )}
       </div>
-      <p>{priority}</p>
-      <p>{description}</p>
+      <p className="flex-[2]">{description}</p>
       <div className="space-x-5">
         <Button
           onClick={() => deleteTodo(_id)}

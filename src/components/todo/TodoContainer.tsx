@@ -1,15 +1,18 @@
 // import { useAppSelector } from "@/redux/hooks";
+import { useState } from "react";
 import AddTodoModal from "./AddTodoModal";
 import TodoCards, { TTodoCardsProps } from "./TodoCards";
 import TodoFilter from "./TodoFilter";
 import { useGetTodosQuery } from "@/redux/api/api";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 const TodoContainer = () => {
   // const todoList = useAppSelector((state) => state.todoList.todos);
+  const [priorityFilter, setPriorityFilter] = useState("");
 
-  const { data: todos, isLoading, isError } = useGetTodosQuery(undefined);
+  const { data: todos, isLoading, isError } = useGetTodosQuery(priorityFilter);
 
-  // console.log(todoList);
+  const [parent, enableAnimations] = useAutoAnimate(/* optional config */);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -21,10 +24,16 @@ const TodoContainer = () => {
     <div>
       <div className="flex justify-between mb-10">
         <AddTodoModal />
-        <TodoFilter />
+        <TodoFilter
+          priorityFilter={priorityFilter}
+          setPriorityFilter={setPriorityFilter}
+        />
       </div>
       <div className="bg-primary-gradient w-full h-full rounded-xl p-[5px]">
-        <div className="bg-white rounded-xl w-full h-full p-5 space-y-3">
+        <div
+          ref={parent}
+          className="bg-white rounded-xl w-full h-full p-5 space-y-3"
+        >
           {todos?.data && todos?.data.length > 0 ? (
             todos?.data?.map((todo: TTodoCardsProps) => (
               <TodoCards {...todo} key={todo?._id} />
