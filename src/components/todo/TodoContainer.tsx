@@ -26,10 +26,17 @@ const TodoContainer = () => {
         <div className="flex justify-between items-center bg-white rounded-xl w-full h-full p-3">
           <AddTodoModal />
           <p className="text-lg font-medium">
-            You have currently {todos?.data?.length} tasks pending and{" "}
+            You have currently{" "}
             {
               todos?.data.filter(
-                (item: TTodoCardsProps) => item.priority === "High"
+                (todo: TTodoCardsProps) => todo.isCompleted === false
+              ).length
+            }{" "}
+            tasks pending and{" "}
+            {
+              todos?.data.filter(
+                (todo: TTodoCardsProps) =>
+                  todo.priority === "High" && todo.isCompleted === false
               ).length
             }{" "}
             have high priority.
